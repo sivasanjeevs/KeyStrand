@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "timestamp": "2026-11-06 14:00:00",
+    "sender_claimed": "Person_A",
+    "actual_author": "Person_A",
+    "mood": "careful",
+    "text": "are you coming to library for the project",
+    "note": "Normal daytime conversation"
+  },
+  {
+    "id": 2,
+    "timestamp": "2026-11-06 02:45:10",
+    "sender_claimed": "Person_A",
+    "actual_author": "Impostor",
+    "mood": "rushing",
+    "text": "bro send beriyani mony urgnt gpay fast",
+    "note": "Suspicious midnight request from Person A's account"
+  },
+  {
+    "id": 3,
+    "timestamp": "2026-11-06 02:47:00",
+    "sender_claimed": "Person_B",
+    "actual_author": "Person_B",
+    "mood": "rushing",
+    "text": "wait soooomeone is asking for cash who is this",
+    "note": "Person B double-taps keys in shock"
+  }
+]

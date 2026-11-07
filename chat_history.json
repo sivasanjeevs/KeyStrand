@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "timestamp": "2026-11-05 18:30:15",
+    "sender_claimed": "Person_A",
+    "actual_author": "Person_A",
+    "mood": "careful",
+    "text": "hey brother are you coming to library today for the assignment project",
+    "note": "Legitimate study coordination from Person A."
+  },
+  {
+    "id": 2,
+    "timestamp": "2026-11-05 19:15:22",
+    "sender_claimed": "Person_A",
+    "actual_author": "Person_A",
+    "mood": "rushing",
+    "text": "leaving hostel now c u at canteen tmrw mrng",
+    "note": "Person A rushing out; dropped vowels (tmrw, mrng)."
+  },
+  {
+    "id": 3,
+    "timestamp": "2026-11-05 21:40:02",
+    "sender_claimed": "Person_A",
+    "actual_author": "Person_A",
+    "mood": "careful",
+    "text": "did you submit the college homework to the portal already",
+    "note": "Person A checking homework submission."
+  },
+  {
+    "id": 4,
+    "timestamp": "2026-11-06 03:02:44",
+    "sender_claimed": "Person_A",
+    "actual_author": "Impostor",
+    "mood": "rushing",
+    "text": "bhaiya send beriyani mony urgnt akount transfer right now",
+    "note": "THE HIJACKED MESSAGE! 3 AM ransom demand showing Impostor's phonetic spelling habit (beriyani, mony, urgnt, akount)."
+  },
+  {
+    "id": 5,
+    "timestamp": "2026-11-06 03:05:18",
+    "sender_claimed": "Person_B",
+    "actual_author": "Person_B",
+    "mood": "careful",
+    "text": "wait who is this why are you asking money at 3am seriously",
+    "note": "Person B suspicious of the sudden midnight request."
+  },
+  {
+    "id": 6,
+    "timestamp": "2026-11-06 03:07:05",
+    "sender_claimed": "Person_A",
+    "actual_author": "Impostor",
+    "mood": "rushing",
+    "text": "im so hungrry plzzz send to gpay fast no problem",
+    "note": "Impostor pushing with non-standard typos (hungrry, plzzz, gpay)."
+  },
+  {
+    "id": 7,
+    "timestamp": "2026-11-06 08:14:50",
+    "sender_claimed": "Person_A",
+    "actual_author": "Person_A",
+    "mood": "careful",
+    "text": "what happened guys my phone was switched off all night in hostel",
+    "note": "Real Person A wakes up confused."
+  },
+  {
+    "id": 8,
+    "timestamp": "2026-11-06 08:16:30",
+    "sender_claimed": "Person_B",
+    "actual_author": "Person_B",
+    "mood": "rushing",
+    "text": "soooomeone logged into your acct and asked for birryani cash",
+    "note": "Person B typing fast with classic key-bounce repeats (soooomeone, birryani)."
+  },
+  {
+    "id": 9,
+    "timestamp": "2026-11-06 08:18:11",
+    "sender_claimed": "Person_A",
+    "actual_author": "Impostor",
+    "mood": "rushing",
+    "text": "beriyani swiggy order still waiting send mony brother",
+    "note": "Impostor still trying one last attempt before session terminates."
+  },
+  {
+    "id": 10,
+    "timestamp": "2026-11-06 08:21:40",
+    "sender_claimed": "Person_A",
+    "actual_author": "Person_A",
+    "mood": "careful",
+    "text": "check the session logs immediately someone hijacked my account",
+    "note": "Real Person A sounds the forensic alarm."
+  }
+]
