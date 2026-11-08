@@ -210,11 +210,20 @@ class ForensicEngine:
         llr_claimed_vs_top = claimed_hmm - top_hmm
 
         # Decision threshold
-        if claimed_sender == top_typist:
+        claimed_score = combined_scores.get(claimed_sender, -100.0)
+        margin_over_claimed = top_score - claimed_score
+
+        # A hijack requires statistically meaningful deviation from claimed author's baseline
+        has_anomalies = (op_counts['S'] > 0) or (op_counts['I'] > 1) or (op_counts['D'] > 1)
+        is_distinctive_hijack = (top_typist != claimed_sender) and (
+            margin_over_claimed >= 3.5 or (has_anomalies and margin_over_claimed >= 1.5)
+        )
+
+        if not is_distinctive_hijack:
             verdict = claimed_sender
             is_hijack = False
             margin = top_score - second_score
-            confidence = min(99.0, max(65.0, 80.0 + 3.0 * margin))
+            confidence = min(99.0, max(65.0, 85.0 + 2.0 * margin))
             reasoning = (
                 f"Typing habits match {claimed_sender}'s calibrated profile. "
                 f"Keystroke edit pattern ({op_percents['M']}% matches, {op_percents['S']}% subs, "
@@ -223,12 +232,11 @@ class ForensicEngine:
         else:
             verdict = top_typist
             is_hijack = True
-            margin = top_score - second_score
-            confidence = min(99.0, max(70.0, 82.0 + 3.5 * margin))
+            confidence = min(99.0, max(75.0, 82.0 + 3.0 * margin_over_claimed))
             reasoning = (
                 f"🚨 HIJACK DETECTED! Message was sent from {claimed_sender}'s account, "
                 f"but forensic analysis strongly identifies true typist as {top_typist}. "
-                f"Forensic score margin: +{margin:.2f} over claimed author. "
+                f"Forensic score margin: +{margin_over_claimed:.2f} over claimed author. "
                 f"Key anomalies: {op_counts['S']} substitutions, {op_counts['I']} key bounces, {op_counts['D']} omissions."
             )
 
@@ -316,17 +324,22 @@ class ForensicEngine:
             # Model 4: Combined Model (HMM + PSSM + Habits)
             comb = {}
             for t in classes:
-                norm_hmm = hmm_sc[t] / max(1, len(ops))
-                pssm_val = self.profiler.pssm_registry.score_message(t, [(intended, typed)])
-                habit_bonus = 0.0
-                if t == "Person_A":
-                    habit_bonus = 1.5 * d_count - 1.5 * i_count
-                elif t == "Person_B":
-                    habit_bonus = 2.0 * i_count - 1.0 * d_count
-                elif t == "Impostor":
-                    habit_bonus = 1.5 * s_count - 1.0 * i_count
+                base_hmm = hmm_sc[t]
+                if s_count == 0 and i_count == 0 and d_count == 0:
+                    comb[t] = base_hmm
+                else:
+                    hb = 0.0
+                    if t == "Person_A":
+                        hb = 0.5 * d_count - 0.5 * i_count
+                    elif t == "Person_B":
+                        hb = 0.5 * i_count - 0.5 * d_count
+                    elif t == "Impostor":
+                        hb = 1.0 * s_count - 0.5 * i_count
 
-                comb[t] = (2.0 * norm_hmm) + (0.4 * pssm_val) + habit_bonus
+                    pssm_val = self.profiler.pssm_registry.score_message(t, [(intended, typed)])
+                    pssm_baseline = self.profiler.pssm_registry.score_message("Person_A", [(intended, typed)])
+                    pssm_diff = pssm_val - pssm_baseline
+                    comb[t] = base_hmm + (0.5 * pssm_diff) + hb
             preds_combined.append(max(comb, key=comb.get))
 
         # Compute confusion matrices
